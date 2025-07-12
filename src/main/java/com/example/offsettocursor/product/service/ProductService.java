@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -74,4 +75,33 @@ public class ProductService {
                 .build();
     }
 
+    /**
+     * <커서 기반 - QueryDSL> QueryDSL을 사용하여 상품 목록을 조회합니다.
+     * QueryDSL을 통해 동적 쿼리를 생성하여 커서 기반 페이지네이션을 구현합니다.
+     * 첫 요청 시에는 lastId가 null이며, 이후 요청에서는 마지막으로 받은 상품의 ID를 lastId로 사용합니다.
+     *
+     * @param lastId 이전 페이지의 마지막 상품 ID (첫 요청시 null)
+     * @param size 조회할 상품의 개수
+     * @return ProductCursorResponse 객체 (상품 목록, 다음 커서 값, 다음 페이지 존재 여부 포함)
+     */
+    public ProductCursorResponseDto getProductsByCursorQueryDSL(Long lastId, int size) {
+        List<Product> products = productRepository.findProductsByCursorQuery(lastId, size);
+
+        boolean hasNext = products.size() > size;
+        if (hasNext) {
+            products = products.subList(0, size);
+        }
+
+        List<ProductDto> items = products.stream()
+                .map(ProductDto::from)
+                .toList();
+
+        Long nextCursor = hasNext ? items.get(items.size() - 1).getId() : null;
+
+        return ProductCursorResponseDto.builder()
+                .items(items)
+                .nextCursor(nextCursor)
+                .hasNext(hasNext)
+                .build();
+    }
 }
