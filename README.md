@@ -9,8 +9,9 @@ QueryDSL을 활용하여 커서 기반 페이징 쿼리를 효율적으로 구�
 - 커서 방식: `lastId`, `size` 기반으로 고정 성능 확보
 - 두 방식을 모두 API로 구현하여 구조와 장단점 비교 가능
 
-> 📚 관련 블로그: [오프셋 기반 vs 커서 기반 페이징 기법 비교](https://deve1opment-story.tistory.com/)
-
+📚 관련 블로그:  
+- [오프셋 기반 vs 커서 기반 페이징 기법 비교](https://deve1opment-story.tistory.com/entry/Spring-%EC%98%A4%ED%94%84%EC%85%8B-%EA%B8%B0%EB%B0%98-vs-%EC%BB%A4%EC%84%9C-%EA%B8%B0%EB%B0%98-%ED%8E%98%EC%9D%B4%EC%A7%95-%EA%B8%B0%EB%B2%95)  
+- [오프셋 기반 페이징, 데이터가 많아질수록 성능 저하를 부를 수 있습니다 (작성 중)](https://deve1opment-story.tistory.com/)
 ---
 
 ## 🚀 주요 기능
